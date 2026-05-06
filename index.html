@@ -1,62 +1,107 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>TetherGet Pro Mobile P2P</title>
-  <style>
-    *{box-sizing:border-box} :root{--bg:#070b14;--card:#111827;--card2:#0f172a;--line:#263244;--text:#f8fafc;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444;--yellow:#f59e0b;--purple:#8b5cf6;--soft:#172033} body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:linear-gradient(180deg,#060914,#101827);color:var(--text)} button,input,select,textarea{font-family:inherit} button{border:0;cursor:pointer} .app{max-width:520px;margin:0 auto;min-height:100vh;background:#08111f;box-shadow:0 0 50px rgba(0,0,0,.55);position:relative;padding-bottom:92px}.topbar{position:sticky;top:0;z-index:50;background:rgba(8,17,31,.92);backdrop-filter:blur(14px);padding:14px 16px 12px;border-bottom:1px solid var(--line)}.toprow{display:flex;justify-content:space-between;align-items:center;gap:10px}.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}.brandIcon{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#10b981);display:grid;place-items:center}.wallet{background:var(--soft);color:white;border:1px solid var(--line);border-radius:999px;padding:9px 12px;font-size:12px;font-weight:900}.search{margin-top:12px;display:flex;gap:8px}.search input{flex:1;background:#0b1220;color:white;border:1px solid var(--line);border-radius:14px;padding:12px}.filterBtn{background:#1e293b;color:white;border-radius:14px;padding:0 14px;font-weight:900}.hero{margin:14px 16px 10px;padding:18px;border-radius:24px;background:linear-gradient(135deg,#1d4ed8,#0f766e);box-shadow:0 18px 45px rgba(37,99,235,.22)}.hero h1{margin:0;font-size:22px}.hero p{margin:8px 0 0;color:#dbeafe;line-height:1.5;font-size:13px}.quickStats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 16px}.qstat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;text-align:center}.qstat span{display:block;color:var(--muted);font-size:11px}.qstat b{display:block;margin-top:5px;font-size:15px}.chips{display:flex;gap:8px;overflow:auto;padding:4px 16px 12px}.chip,.selectChip{white-space:nowrap;background:#111827;border:1px solid var(--line);color:#cbd5e1;border-radius:999px;padding:9px 13px;font-weight:800;font-size:13px}.chip.active,.selectChip.active{background:var(--blue);border-color:var(--blue);color:white}.selectGrid{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.page{display:none;padding:0 16px}.page.active{display:block}.sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:12px 0}.sectionTitle h2{font-size:18px;margin:0}.sectionTitle small{color:var(--muted)}.sellerCard,.card{background:linear-gradient(180deg,#111827,#0b1220);border:1px solid var(--line);border-radius:24px;padding:16px;margin-bottom:12px;box-shadow:0 10px 26px rgba(0,0,0,.2)}.sellerCard{cursor:pointer}.sellerTop{display:flex;justify-content:space-between;gap:10px}.sellerInfo{display:flex;gap:12px;align-items:center}.avatar{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,#334155,#2563eb);display:grid;place-items:center;font-weight:900}.name{font-weight:900}.sub{color:var(--muted);font-size:12px;margin-top:3px}.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:5px 8px;font-weight:900;font-size:11px;background:#172033;color:#cbd5e1}.badge.green{background:rgba(16,185,129,.15);color:#34d399}.badge.blue{background:rgba(37,99,235,.18);color:#60a5fa}.badge.red{background:rgba(239,68,68,.16);color:#f87171}.priceBox{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}.priceItem{background:#0b1220;border:1px solid var(--line);border-radius:16px;padding:12px}.priceItem span{color:var(--muted);font-size:12px}.priceItem b{display:block;margin-top:6px;font-size:16px}.methods{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.method{font-size:11px;font-weight:800;color:#cbd5e1;background:#172033;border-radius:999px;padding:6px 8px}.buyBtn,.sellBtn{width:100%;margin-top:14px;background:linear-gradient(135deg,#10b981,#059669);color:white;border-radius:16px;padding:14px;font-weight:950;font-size:15px}.sellBtn{background:linear-gradient(135deg,#2563eb,#1d4ed8)}.dangerBtn{background:linear-gradient(135deg,#ef4444,#b91c1c)}.secondaryBtn{background:#172033;color:white;border:1px solid var(--line)}.form label{display:block;margin:12px 0 6px;color:#cbd5e1;font-weight:900;font-size:13px}.form input,.form select,.form textarea{width:100%;background:#0b1220;color:white;border:1px solid var(--line);border-radius:16px;padding:13px;font-size:15px}.form textarea{min-height:88px;resize:vertical}.order{background:#0b1220;border:1px solid var(--line);border-radius:20px;padding:14px;margin-bottom:10px}.orderTop{display:flex;justify-content:space-between}.amount{font-size:19px;font-weight:950}.status{font-size:11px;font-weight:900;padding:6px 8px;border-radius:999px;background:#172033}.status.paid{background:rgba(139,92,246,.18);color:#c4b5fd}.status.wait{background:rgba(245,158,11,.18);color:#fbbf24}.status.done{background:rgba(16,185,129,.18);color:#34d399}.status.dispute{background:rgba(239,68,68,.18);color:#f87171}.adminPanel{display:grid;gap:10px}.adminMetric{background:#0b1220;border:1px solid var(--line);border-radius:18px;padding:14px}.adminMetric span{color:var(--muted);font-size:12px}.adminMetric b{display:block;margin-top:6px;font-size:21px}.tableCard{overflow:auto}.miniTable{width:100%;border-collapse:collapse;min-width:720px}.miniTable th,.miniTable td{padding:11px;border-bottom:1px solid var(--line);font-size:13px;text-align:left;white-space:nowrap}.miniTable th{color:var(--muted)}.adminTabs{display:flex;gap:8px;overflow:auto;margin-bottom:12px}.adminTab{background:#172033;color:#cbd5e1;border-radius:999px;padding:9px 12px;font-weight:900}.adminTab.active{background:#2563eb;color:white}.bottomNav{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:100%;max-width:520px;background:rgba(8,17,31,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 8px calc(8px + env(safe-area-inset-bottom));z-index:80}.navItem{background:transparent;color:#94a3b8;padding:8px 2px;border-radius:14px;font-size:11px;font-weight:900}.navItem b{display:block;font-size:20px;margin-bottom:3px}.navItem.active{color:white;background:#172033}.modal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:flex-end;z-index:100}.modal.show{display:flex}.sheet{width:100%;max-width:520px;margin:0 auto;background:#0b1220;border:1px solid var(--line);border-radius:28px 28px 0 0;padding:20px;max-height:90vh;overflow:auto}.sheetHandle{width:46px;height:5px;background:#334155;border-radius:99px;margin:0 auto 14px}.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:95px;max-width:480px;width:calc(100% - 32px);background:#111827;border:1px solid var(--line);color:white;border-radius:18px;padding:13px;display:none;z-index:120;box-shadow:0 20px 45px rgba(0,0,0,.4)}.toast.show{display:block}.refTree{background:#020617;border:1px solid var(--line);border-radius:18px;padding:14px;font-family:monospace;color:#cbd5e1;white-space:pre;overflow:auto}.alert{padding:12px;border-radius:18px;background:#172033;border:1px solid var(--line);margin-bottom:8px;font-size:13px}@media(min-width:900px){body{background:#030712}.app{max-width:1180px;padding-bottom:0}.bottomNav{display:none}.quickStats{grid-template-columns:repeat(6,1fr)}.sellerList{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.sellerCard{margin-bottom:0}.adminPanel{grid-template-columns:repeat(4,1fr)}}
-  </style>
-</head>
-<body>
-<div class="app">
-  <header class="topbar">
-    <div class="toprow"><div class="brand"><div class="brandIcon">₮</div><div id="brandName">TetherGet<br><span class="sub" id="brandSub">P2P Escrow Mobile</span></div></div><button class="wallet" id="walletBtn" onclick="connectWallet()">지갑 연결</button></div>
-    <div class="search"><input id="search" placeholder="판매자, 통화, 결제방법 검색" oninput="render()"><button class="filterBtn" onclick="toast('고급 필터는 다음 버전에서 확장됩니다')">필터</button></div>
-  </header>
-  <section class="hero"><h1 id="heroTitle">USDT/SOL P2P 거래를 더 안전하게</h1><p id="heroDesc">에스크로, 입금확인, 평판, 레벨, 분쟁중재, 20단계 레퍼럴을 모바일 앱처럼 관리합니다.</p></section>
-  <section class="quickStats" id="quickStats"></section>
-  <section class="chips"><button class="chip active" onclick="setCoin('ALL',this)">전체</button><button class="chip" onclick="setCoin('USDT',this)">USDT</button><button class="chip" onclick="setCoin('SOL',this)">SOL</button><button class="chip" onclick="setFiat('KRW',this)">KRW</button><button class="chip" onclick="setFiat('VND',this)">VND</button><button class="chip" onclick="setFiat('USD',this)">USD</button></section>
-  <main>
-    <section id="home" class="page active"><div class="sectionTitle"><h2>인증 판매자</h2><small id="sellerCount"></small></div><div class="sellerList" id="sellerList"></div></section>
-    <section id="sell" class="page"><div class="sectionTitle"><h2>판매 등록</h2><small>에스크로 예치형</small></div><div class="card form"><label>판매 코인</label><div class="selectGrid" id="coinBtns"></div><label>판매 수량</label><input id="sellAmount" type="number" placeholder="예: 1000"><label>받을 통화</label><div class="selectGrid" id="fiatBtns"></div><label>환율</label><input id="sellRate" type="number" placeholder="예: 1380"><label>결제방법</label><div class="selectGrid" id="paymentBtns"></div><input id="customPayment" placeholder="기타 결제방법 직접 입력"><label>거래 메모</label><textarea id="sellMemo" placeholder="입금 확인 시간, 주의사항"></textarea><button class="sellBtn" onclick="createListing()">판매글 등록 + 에스크로 예치</button></div></section>
-    <section id="orders" class="page"><div class="sectionTitle"><h2>내 거래</h2><small>진행 상태</small></div><div id="orderList"></div></section>
-    <section id="wallet" class="page"><div class="sectionTitle"><h2>내 지갑/평판</h2><small>레벨 시스템</small></div><div class="card" id="walletInfo"></div><div class="card"><h2>20단계 레퍼럴</h2><div class="refTree" id="refTree"></div></div></section>
-    <section id="admin" class="page"><div class="sectionTitle"><h2>관리자 콘솔</h2><small>운영 백오피스</small></div><div class="adminTabs"><button class="adminTab active" onclick="setAdminTab('dashboard',this)">대시보드</button><button class="adminTab" onclick="setAdminTab('content',this)">문구수정</button><button class="adminTab" onclick="setAdminTab('settings',this)">앱설정</button><button class="adminTab" onclick="setAdminTab('seller',this)">판매자수정</button><button class="adminTab" onclick="setAdminTab('data',this)">데이터관리</button></div><div id="adminBody"></div></section>
-  </main>
-  <nav class="bottomNav"><button class="navItem active" onclick="go('home',this)"><b>🏠</b>홈</button><button class="navItem" onclick="go('sell',this)"><b>＋</b>판매</button><button class="navItem" onclick="go('orders',this)"><b>📄</b>거래</button><button class="navItem" onclick="go('wallet',this)"><b>👛</b>지갑</button><button class="navItem" onclick="go('admin',this)"><b>⚙️</b>관리</button></nav>
+<!-- 결제방법 선택 버튼 -->
+<div class="quick-pay-wrap">
+  <div class="quick-title">결제방법</div>
+
+  <div class="quick-pay-grid">
+    <button class="pay-chip active" onclick="selectPay(this,'은행이체')">
+      🏦 은행이체
+    </button>
+
+    <button class="pay-chip" onclick="selectPay(this,'MoMo')">
+      📱 MoMo
+    </button>
+
+    <button class="pay-chip" onclick="selectPay(this,'현금')">
+      💵 현금
+    </button>
+
+    <button class="pay-chip" onclick="selectPay(this,'카카오페이')">
+      🟨 카카오페이
+    </button>
+
+    <button class="pay-chip" onclick="selectPay(this,'토스')">
+      💙 토스
+    </button>
+  </div>
+
+  <input
+    id="paymentInput"
+    class="pay-hidden-input"
+    value="은행이체"
+  />
 </div>
-<div class="modal" id="buyModal"><div class="sheet"><div class="sheetHandle"></div><div id="buySheet"></div></div></div><div class="toast" id="toast"></div>
+
+<style>
+.quick-pay-wrap{
+  margin-top:14px;
+}
+
+.quick-title{
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#ffffff;
+}
+
+.quick-pay-grid{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.pay-chip{
+  border:none;
+  background:#111827;
+  color:#cbd5e1;
+  padding:12px 16px;
+  border-radius:14px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.2s;
+  border:1px solid #263244;
+}
+
+.pay-chip:hover{
+  transform:translateY(-2px);
+}
+
+.pay-chip.active{
+  background:linear-gradient(135deg,#2563eb,#3b82f6);
+  color:white;
+  border:1px solid #3b82f6;
+  box-shadow:0 0 20px rgba(37,99,235,0.35);
+}
+
+.pay-hidden-input{
+  opacity:0;
+  height:0;
+  width:0;
+  position:absolute;
+}
+
+@media(max-width:520px){
+  .quick-pay-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+
+  .pay-chip{
+    width:100%;
+  }
+}
+</style>
+
 <script>
-let wallet='',coinFilter='ALL',fiatFilter='ALL',adminTab='dashboard',sellCoin='USDT',sellFiat='KRW',sellPayment='은행이체';
-let appText={brand:'TetherGet',sub:'P2P Escrow Mobile',hero:'USDT/SOL P2P 거래를 더 안전하게',desc:'에스크로, 입금확인, 평판, 레벨, 분쟁중재, 20단계 레퍼럴을 모바일 앱처럼 관리합니다.',buyBtn:'구매하기',sellBtn:'판매글 등록 + 에스크로 예치'};
-let appSettings={coins:['USDT','SOL','USDC'],fiats:['KRW','VND','USD','THB'],payments:['은행이체','MoMo','현금','토스','카카오뱅크','Wise'],fee:1,escrow:'ON'};
-let sellers=[{id:1,name:'AlphaPay',avatar:'A',level:7,verified:true,score:99,done:428,avg:'2분',coin:'USDT',amount:50000,fiat:'KRW',rate:1384,pay:['은행이체','카카오뱅크','토스'],limit:'100~20,000 USDT',memo:'대량 거래 가능 / 빠른 확인'},{id:2,name:'Danang OTC',avatar:'D',level:6,verified:true,score:97,done:311,avg:'4분',coin:'USDT',amount:28000,fiat:'VND',rate:25500,pay:['베트남 계좌','MoMo','현금'],limit:'50~10,000 USDT',memo:'다낭/호치민 가능'},{id:3,name:'SOL Master',avatar:'S',level:5,verified:true,score:96,done:188,avg:'3분',coin:'SOL',amount:1200,fiat:'KRW',rate:205000,pay:['은행이체'],limit:'1~200 SOL',memo:'SOL 즉시 릴리즈'}];
-let orders=[{id:1001,seller:'AlphaPay',buyer:'TG_USER_001',coin:'USDT',amount:1000,fiat:'KRW',rate:1384,status:'WAIT',proof:'',created:'오늘 11:30'},{id:1002,seller:'Global Desk',buyer:'TG_USER_002',coin:'USDT',amount:5000,fiat:'USD',rate:1,status:'PAID',proof:'wire-proof.png',created:'오늘 11:52'}];
-let users=[{id:'U001',name:'AlphaPay',role:'판매자',level:7,score:99,volume:588000000,downline:41,status:'정상'},{id:'U002',name:'Danang OTC',role:'판매자',level:6,score:97,volume:321000000,downline:25,status:'정상'}];let alerts=['입금 확인 요청: #1002 Global Desk','신규 판매자 승인 대기'];
-function n(x){return Number(x||0).toLocaleString()} function totalVolume(){return sellers.reduce((a,s)=>a+s.amount*s.rate,0)} function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
-function saveLocal(){localStorage.setItem('tg_state',JSON.stringify({appText,appSettings,sellers,orders,users,alerts}))} function loadLocal(){let s=localStorage.getItem('tg_state');if(s){try{let d=JSON.parse(s);appText=d.appText||appText;appSettings=d.appSettings||appSettings;sellers=d.sellers||sellers;orders=d.orders||orders;users=d.users||users;alerts=d.alerts||alerts}catch(e){}}}
-function connectWallet(){wallet='TG_'+Math.floor(Math.random()*999999);document.getElementById('walletBtn').textContent=wallet.slice(0,5)+'...'+wallet.slice(-4);toast('지갑이 연결되었습니다')}
-function go(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navItem').forEach(b=>b.classList.remove('active')); if(el)el.classList.add('active');render()}
-function setCoin(v,el){coinFilter=v;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');render()} function setFiat(v,el){fiatFilter=v;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');render()} function setChoice(type,val){if(type==='coin')sellCoin=val;if(type==='fiat')sellFiat=val;if(type==='payment')sellPayment=val;renderChoiceBtns()}
-function renderChoiceBtns(){document.getElementById('coinBtns').innerHTML=appSettings.coins.map(x=>`<button class="selectChip ${sellCoin===x?'active':''}" onclick="setChoice('coin','${x}')">${x}</button>`).join('');document.getElementById('fiatBtns').innerHTML=appSettings.fiats.map(x=>`<button class="selectChip ${sellFiat===x?'active':''}" onclick="setChoice('fiat','${x}')">${x}</button>`).join('');document.getElementById('paymentBtns').innerHTML=appSettings.payments.map(x=>`<button class="selectChip ${sellPayment===x?'active':''}" onclick="setChoice('payment','${x}')">${x}</button>`).join('')}
-function filteredSellers(){let q=(document.getElementById('search')?.value||'').toLowerCase();return sellers.filter(s=>(coinFilter==='ALL'||s.coin===coinFilter)&&(fiatFilter==='ALL'||s.fiat===fiatFilter)&&(`${s.name} ${s.fiat} ${s.coin} ${s.pay.join(' ')}`.toLowerCase().includes(q)))}
-function sellerCard(s){return `<div class="sellerCard" onclick="openBuy(${s.id})"><div class="sellerTop"><div class="sellerInfo"><div class="avatar">${s.avatar}</div><div><div class="name">${s.name} ${s.verified?'✅':''}</div><div class="sub">Lv.${s.level} · 완료 ${s.done}건 · 평점 ${s.score}%</div></div></div><span class="badge green">응답 ${s.avg}</span></div><div class="priceBox"><div class="priceItem"><span>판매 가능</span><b>${n(s.amount)} ${s.coin}</b></div><div class="priceItem"><span>환율</span><b>${n(s.rate)} ${s.fiat}</b></div></div><div class="methods">${s.pay.map(p=>`<span class="method">${p}</span>`).join('')}</div><div class="sub" style="margin-top:10px">한도: ${s.limit}<br>${s.memo}</div><button class="buyBtn" onclick="event.stopPropagation();openBuy(${s.id})">${appText.buyBtn}</button></div>`}
-function openBuy(id){let s=sellers.find(x=>x.id===id);document.getElementById('buySheet').innerHTML=`<h2>${s.name}에게 ${s.coin} 구매</h2><div class="card form"><label>구매 수량</label><input id="buyAmount" type="number" placeholder="예: 1000"><label>결제방법 선택</label><div class="selectGrid">${s.pay.map(p=>`<button class="selectChip" onclick="document.querySelectorAll('#buySheet .selectChip').forEach(x=>x.classList.remove('active'));this.classList.add('active')">${p}</button>`).join('')}</div><div class="priceBox"><div class="priceItem"><span>환율</span><b>${n(s.rate)} ${s.fiat}</b></div><div class="priceItem"><span>수수료</span><b>${appSettings.fee}%</b></div></div><button class="buyBtn" onclick="confirmBuy(${s.id})">거래 신청하기</button><button class="buyBtn secondaryBtn" onclick="closeBuy()">닫기</button></div>`;document.getElementById('buyModal').classList.add('show')}
-function closeBuy(){document.getElementById('buyModal').classList.remove('show')} function confirmBuy(id){let s=sellers.find(x=>x.id===id),amt=+document.getElementById('buyAmount').value;if(!amt){toast('구매 수량을 입력하세요');return}orders.unshift({id:Date.now(),seller:s.name,buyer:wallet||'TG_DEMO',coin:s.coin,amount:amt,fiat:s.fiat,rate:s.rate,status:'WAIT',proof:'',created:'방금'});alerts.unshift(`신규 거래 신청: ${s.name} ${amt} ${s.coin}`);saveLocal();closeBuy();go('orders',document.querySelectorAll('.navItem')[2]);toast('거래 신청 완료')}
-function createListing(){let amount=+document.getElementById('sellAmount').value,rate=+document.getElementById('sellRate').value,pay=document.getElementById('customPayment').value||sellPayment;if(!amount||!rate||!pay){toast('필수값을 입력하세요');return}sellers.unshift({id:Date.now(),name:wallet||'New Seller',avatar:'N',level:1,verified:false,score:80,done:0,avg:'미측정',coin:sellCoin,amount,fiat:sellFiat,rate,pay:[pay],limit:'직접 설정',memo:document.getElementById('sellMemo').value||'신규 판매글'});alerts.unshift('신규 판매글 등록 승인 대기');saveLocal();toast('판매글이 등록되었습니다');go('home',document.querySelectorAll('.navItem')[0])}
-function markPaid(id){orders=orders.map(o=>o.id===id?{...o,status:'PAID',proof:'proof-uploaded.png'}:o);alerts.unshift('입금 확인 바람: #'+id);saveLocal();toast('판매자에게 입금확인 알림 발송')} function release(id){orders=orders.map(o=>o.id===id?{...o,status:'DONE'}:o);saveLocal();toast('코인 지급 완료 처리')} function dispute(id){orders=orders.map(o=>o.id===id?{...o,status:'DISPUTE'}:o);alerts.unshift('분쟁 접수: #'+id);saveLocal();toast('분쟁이 접수되었습니다')}
-function orderCard(o){let cls=o.status==='PAID'?'paid':o.status==='DONE'?'done':o.status==='DISPUTE'?'dispute':'wait';let text={WAIT:'입금대기',PAID:'입금확인요청',DONE:'지급완료',DISPUTE:'분쟁'}[o.status];return `<div class="order"><div class="orderTop"><div><div class="amount">${n(o.amount)} ${o.coin}</div><div class="sub">${o.seller} · ${o.created}</div></div><span class="status ${cls}">${text}</span></div><div class="priceBox"><div class="priceItem"><span>총액</span><b>${n(o.amount*o.rate)} ${o.fiat}</b></div><div class="priceItem"><span>증빙</span><b>${o.proof||'없음'}</b></div></div><div class="methods"><button class="method" onclick="markPaid(${o.id})">입금완료</button><button class="method" onclick="release(${o.id})">릴리즈</button><button class="method" onclick="dispute(${o.id})">분쟁</button></div></div>`}
-function setAdminTab(t,el){adminTab=t;document.querySelectorAll('.adminTab').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderAdmin()}
-function renderAdmin(){let b=document.getElementById('adminBody');if(adminTab==='dashboard'){b.innerHTML=`<div class="adminPanel"><div class="adminMetric"><span>총 거래량</span><b>${n(totalVolume())}</b></div><div class="adminMetric"><span>수수료 예상</span><b>${n(totalVolume()*appSettings.fee/100)}</b></div><div class="adminMetric"><span>입금확인</span><b>${orders.filter(o=>o.status==='PAID').length}</b></div><div class="adminMetric"><span>판매자</span><b>${sellers.length}</b></div></div><div class="card"><h2>알림</h2>${alerts.map(a=>`<div class="alert">🔔 ${a}</div>`).join('')}</div>`}
-if(adminTab==='content'){b.innerHTML=`<div class="card form"><h2>앱 문구 수정</h2><label>브랜드명</label><input value="${appText.brand}" oninput="appText.brand=this.value;saveLocal();renderText()"><label>서브문구</label><input value="${appText.sub}" oninput="appText.sub=this.value;saveLocal();renderText()"><label>메인 제목</label><input value="${appText.hero}" oninput="appText.hero=this.value;saveLocal();renderText()"><label>메인 설명</label><textarea oninput="appText.desc=this.value;saveLocal();renderText()">${appText.desc}</textarea><label>구매 버튼명</label><input value="${appText.buyBtn}" oninput="appText.buyBtn=this.value;saveLocal();render()"><label>판매 버튼명</label><input value="${appText.sellBtn}" oninput="appText.sellBtn=this.value;saveLocal();render()"></div>`}
-if(adminTab==='settings'){b.innerHTML=`<div class="card form"><h2>코인/통화/결제수단 수정</h2><label>코인 목록 , 로 구분</label><input value="${appSettings.coins.join(',')}" onchange="appSettings.coins=this.value.split(',').map(x=>x.trim()).filter(Boolean);saveLocal();render()"><label>통화 목록 , 로 구분</label><input value="${appSettings.fiats.join(',')}" onchange="appSettings.fiats=this.value.split(',').map(x=>x.trim()).filter(Boolean);saveLocal();render()"><label>결제수단 목록 , 로 구분</label><input value="${appSettings.payments.join(',')}" onchange="appSettings.payments=this.value.split(',').map(x=>x.trim()).filter(Boolean);saveLocal();render()"><label>수수료 %</label><input type="number" value="${appSettings.fee}" onchange="appSettings.fee=+this.value;saveLocal();render()"></div>`}
-if(adminTab==='seller'){b.innerHTML=`<div class="card form"><h2>판매자 수정</h2><select id="editSeller" onchange="renderSellerEditor(+this.value)">${sellers.map(s=>`<option value="${s.id}">${s.name}</option>`).join('')}</select><div id="sellerEditor"></div></div>`;renderSellerEditor(sellers[0]?.id)}
-if(adminTab==='data'){b.innerHTML=`<div class="card"><h2>데이터 관리</h2><button class="sellBtn" onclick="localStorage.removeItem('tg_state');location.reload()">초기화</button><button class="buyBtn secondaryBtn" onclick="alert(JSON.stringify({appText,appSettings,sellers,orders},null,2))">현재 데이터 보기</button></div><div class="card tableCard"><h2>거래 테이블</h2><table class="miniTable"><tr><th>ID</th><th>판매자</th><th>구매자</th><th>수량</th><th>총액</th><th>상태</th></tr>${orders.map(o=>`<tr><td>${o.id}</td><td>${o.seller}</td><td>${o.buyer}</td><td>${n(o.amount)} ${o.coin}</td><td>${n(o.amount*o.rate)} ${o.fiat}</td><td>${o.status}</td></tr>`).join('')}</table></div>`}}
-function renderSellerEditor(id){let s=sellers.find(x=>x.id===id);if(!s)return;document.getElementById('sellerEditor').innerHTML=`<label>이름</label><input value="${s.name}" onchange="s.name=this.value;saveLocal();render()"><label>레벨</label><input type="number" value="${s.level}" onchange="s.level=+this.value;saveLocal();render()"><label>점수</label><input type="number" value="${s.score}" onchange="s.score=+this.value;saveLocal();render()"><label>코인</label><input value="${s.coin}" onchange="s.coin=this.value;saveLocal();render()"><label>수량</label><input type="number" value="${s.amount}" onchange="s.amount=+this.value;saveLocal();render()"><label>통화</label><input value="${s.fiat}" onchange="s.fiat=this.value;saveLocal();render()"><label>환율</label><input type="number" value="${s.rate}" onchange="s.rate=+this.value;saveLocal();render()"><label>결제수단 , 구분</label><input value="${s.pay.join(',')}" onchange="s.pay=this.value.split(',').map(x=>x.trim()).filter(Boolean);saveLocal();render()"><label>메모</label><textarea onchange="s.memo=this.value;saveLocal();render()">${s.memo}</textarea>`}
-function renderText(){document.getElementById('brandName').innerHTML=`${appText.brand}<br><span class="sub" id="brandSub">${appText.sub}</span>`;document.getElementById('heroTitle').textContent=appText.hero;document.getElementById('heroDesc').textContent=appText.desc}
-function render(){renderText();renderChoiceBtns();document.getElementById('quickStats').innerHTML=`<div class="qstat"><span>판매자</span><b>${sellers.length}</b></div><div class="qstat"><span>거래</span><b>${orders.length}</b></div><div class="qstat"><span>거래량</span><b>${Math.round(totalVolume()/1000000)}M</b></div><div class="qstat"><span>분쟁</span><b>${orders.filter(o=>o.status==='DISPUTE').length}</b></div>`;let fs=filteredSellers();document.getElementById('sellerCount').textContent=fs.length+'명';document.getElementById('sellerList').innerHTML=fs.map(sellerCard).join('')||'<div class="card">검색 결과가 없습니다.</div>';document.getElementById('orderList').innerHTML=orders.map(orderCard).join('');document.getElementById('walletInfo').innerHTML=`<h2>${wallet||'지갑 미연결'}</h2><p class="sub">레벨 3 · 평판 94% · 완료거래 18건</p><div class="priceBox"><div class="priceItem"><span>예상 USDT</span><b>12,450</b></div><div class="priceItem"><span>레퍼럴 수익</span><b>840 USDT</b></div></div><button class="sellBtn" onclick="connectWallet()">지갑 연결/갱신</button>`;document.getElementById('refTree').textContent=`ReferralKing\n└─ AlphaPay / 41명 / 588M\n  └─ SubSeller A / 12명\n    └─ Buyer Group 1 / 84명\n└─ Danang OTC / 25명 / 321M`;renderAdmin()}
-document.getElementById('buyModal').addEventListener('click',e=>{if(e.target.id==='buyModal')closeBuy()});loadLocal();render();
+function selectPay(el,value){
+
+  document.querySelectorAll('.pay-chip')
+    .forEach(btn=>btn.classList.remove('active'));
+
+  el.classList.add('active');
+
+  document.getElementById('paymentInput').value=value;
+
+  console.log('선택 결제방법:',value);
+}
 </script>
-</body>
-</html>
