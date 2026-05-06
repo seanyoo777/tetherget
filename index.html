@@ -1,1340 +1,785 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TetherGet P2P</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>TetherGet | Global P2P Escrow</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#050816;
+  --card:#0b132b;
+  --line:#1b2847;
+  --blue:#3b82f6;
+  --blue2:#2563eb;
+  --text:#ffffff;
+  --muted:#9fb0d1;
+  --soft:#101935;
+  --white:#ffffff;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
 body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:#08111f;
-color:white;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Apple SD Gothic Neo, Pretendard, sans-serif;
+  overflow-x:hidden;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  width:100%;
+  max-width:1280px;
+  margin:auto;
+  padding:0 20px;
 }
 
 .topbar{
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:64px;
-background:rgba(8,17,31,.92);
-backdrop-filter:blur(12px);
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 18px;
-z-index:100;
-border-bottom:1px solid #1e293b;
+  position:sticky;
+  top:0;
+  z-index:999;
+  backdrop-filter:blur(18px);
+  background:rgba(5,8,22,0.75);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.nav{
+  height:74px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .logo{
-font-size:22px;
-font-weight:900;
-color:#2f80ed;
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:-1px;
 }
 
-.wallet-btn{
-background:#2f80ed;
-color:white;
-border:none;
-padding:12px 18px;
-border-radius:14px;
-font-weight:800;
-cursor:pointer;
+.logo span{
+  color:var(--blue);
+}
+
+.menu{
+  display:flex;
+  gap:14px;
+}
+
+.menu a{
+  padding:12px 18px;
+  border-radius:14px;
+  color:#c6d2ee;
+  transition:0.2s;
+  font-weight:700;
+}
+
+.menu a:hover{
+  background:#101935;
+  color:white;
+}
+
+.langWrap{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.langBtn{
+  background:#101935;
+  border:1px solid #233256;
+  color:white;
+  padding:10px 14px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:700;
 }
 
 .hero{
-padding:110px 20px 50px;
-max-width:1200px;
-margin:auto;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-align-items:center;
+  padding:90px 0 50px;
+}
+
+.heroGrid{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:40px;
+  align-items:center;
+}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#111c39;
+  border:1px solid #263454;
+  color:white;
+  padding:10px 16px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:800;
 }
 
 .hero h1{
-font-size:58px;
-line-height:1.1;
-font-weight:950;
-margin-bottom:20px;
+  margin-top:20px;
+  font-size:74px;
+  line-height:1.05;
+  letter-spacing:-3px;
+  font-weight:950;
+}
+
+.hero h1 span{
+  color:var(--blue);
 }
 
 .hero p{
-font-size:18px;
-line-height:1.7;
-color:#94a3b8;
+  margin-top:24px;
+  color:var(--muted);
+  line-height:1.8;
+  font-size:19px;
 }
 
-.blue{
-color:#2f80ed;
+.heroBtns{
+  margin-top:32px;
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
 }
 
-.hero-buttons{
-display:flex;
-gap:14px;
-margin-top:30px;
-flex-wrap:wrap;
+.btn{
+  padding:18px 26px;
+  border-radius:18px;
+  border:none;
+  font-weight:900;
+  cursor:pointer;
+  font-size:16px;
 }
 
-.primary-btn{
-background:#2f80ed;
-padding:16px 22px;
-border-radius:18px;
-font-weight:900;
-border:none;
-color:white;
-cursor:pointer;
+.primary{
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  color:white;
 }
 
-.secondary-btn{
-background:#111827;
-padding:16px 22px;
-border-radius:18px;
-font-weight:900;
-border:1px solid #263244;
-color:white;
-cursor:pointer;
+.secondary{
+  background:white;
+  color:#111827;
 }
 
-.market-card{
-background:#111827;
-border:1px solid #263244;
-border-radius:30px;
-padding:28px;
+.heroCard{
+  background:linear-gradient(180deg,#0d1633,#081121);
+  border:1px solid #1e2a4b;
+  border-radius:34px;
+  padding:30px;
+  box-shadow:0 40px 80px rgba(0,0,0,0.45);
 }
 
-.price{
-font-size:50px;
-font-weight:950;
-margin:16px 0;
+.priceBox{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:24px;
+}
+
+.priceItem{
+  background:#101935;
+  border:1px solid #233256;
+  border-radius:20px;
+  padding:20px;
+}
+
+.priceItem small{
+  color:#9eb0d0;
+}
+
+.priceItem h3{
+  margin-top:10px;
+  font-size:32px;
 }
 
 .section{
-padding:70px 20px;
-max-width:1200px;
-margin:auto;
+  padding:90px 0;
 }
 
-.section-title{
-font-size:42px;
-font-weight:950;
-margin-bottom:16px;
+.sectionTitle{
+  font-size:54px;
+  line-height:1.1;
+  font-weight:950;
+  letter-spacing:-2px;
 }
 
-.section-desc{
-color:#94a3b8;
-line-height:1.7;
-margin-bottom:30px;
+.sectionTitle span{
+  color:var(--blue);
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
+.sectionDesc{
+  margin-top:18px;
+  color:#9fb0d1;
+  line-height:1.8;
+  max-width:900px;
+}
+
+.cardGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+  margin-top:40px;
 }
 
 .card{
-background:#111827;
-border:1px solid #263244;
-border-radius:26px;
-padding:24px;
+  background:#0c142c;
+  border:1px solid #1b2847;
+  border-radius:30px;
+  padding:28px;
 }
 
 .card h3{
-margin-bottom:10px;
-font-size:22px;
+  margin-top:18px;
+  font-size:28px;
 }
 
-.app{
-display:none;
-padding-top:80px;
-max-width:1200px;
-margin:auto;
-padding-left:16px;
-padding-right:16px;
-padding-bottom:100px;
+.card p{
+  margin-top:12px;
+  color:#9fb0d1;
+  line-height:1.7;
 }
 
-.app.show{
-display:block;
-}
-
-.stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px;
-margin-bottom:20px;
-}
-
-.stat{
-background:#111827;
-border:1px solid #263244;
-border-radius:18px;
-padding:16px;
-text-align:center;
-}
-
-.stat span{
-display:block;
-color:#94a3b8;
-font-size:12px;
-margin-bottom:5px;
-}
-
-.seller-list{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:16px;
+.sellerGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:40px;
 }
 
 .seller{
-background:#111827;
-border:1px solid #263244;
-border-radius:24px;
-padding:20px;
-cursor:pointer;
-transition:.2s;
+  background:white;
+  color:#111827;
+  border-radius:30px;
+  padding:24px;
 }
 
-.seller:hover{
-transform:translateY(-3px);
-}
-
-.seller-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:16px;
+.sellerTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .avatar{
-width:48px;
-height:48px;
-border-radius:16px;
-background:#2f80ed;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:900;
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:22px;
 }
 
-.seller-info{
-display:flex;
-gap:12px;
-align-items:center;
+.live{
+  background:#e8f0ff;
+  color:#2563eb;
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
 }
 
-.badge{
-background:#1e293b;
-padding:8px 12px;
-border-radius:999px;
-font-size:12px;
-font-weight:900;
+.seller h4{
+  margin-top:20px;
+  font-size:34px;
 }
 
-.price-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin:16px 0;
+.stats{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
 }
 
-.price-box{
-background:#08111f;
-border:1px solid #263244;
-border-radius:14px;
-padding:12px;
+.stat{
+  border:1px solid #e7ebf3;
+  border-radius:18px;
+  padding:14px;
+  text-align:center;
 }
 
-.price-box span{
-font-size:12px;
-color:#94a3b8;
-display:block;
-margin-bottom:5px;
+.stat small{
+  color:#6b7280;
 }
 
-.chips{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:10px;
+.stat b{
+  display:block;
+  margin-top:8px;
+  font-size:20px;
 }
 
-.chip{
-background:#172033;
-padding:8px 12px;
-border-radius:999px;
-font-size:12px;
-font-weight:800;
-color:#dbeafe;
+.payments{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:18px;
 }
 
-.trade-btn{
-width:100%;
-margin-top:18px;
-background:#2f80ed;
-border:none;
-padding:15px;
-border-radius:16px;
-font-weight:900;
-color:white;
-cursor:pointer;
+.pay{
+  background:#eef2ff;
+  padding:10px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:800;
 }
 
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:50%;
-transform:translateX(-50%);
-width:100%;
-max-width:520px;
-background:#08111f;
-border-top:1px solid #263244;
-display:none;
-grid-template-columns:repeat(5,1fr);
-padding:10px;
-z-index:90;
+.tradeBtn{
+  margin-top:24px;
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:18px;
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  color:white;
+  font-size:16px;
+  font-weight:900;
+  cursor:pointer;
 }
 
-.bottom-nav button{
-background:none;
-border:none;
-color:#94a3b8;
-font-weight:800;
-padding:8px;
-border-radius:12px;
+.darkBlock{
+  background:#040b1f;
+  border-top:1px solid rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-.bottom-nav button.active{
-background:#172033;
-color:white;
+.guarantee{
+  padding:100px 0;
 }
 
-.panel{
-background:#111827;
-border:1px solid #263244;
-border-radius:24px;
-padding:20px;
-margin-bottom:20px;
+.guarantee h2{
+  margin-top:22px;
+  font-size:72px;
+  line-height:1.08;
+  font-weight:950;
+  letter-spacing:-3px;
 }
 
-.form label{
-display:block;
-margin:14px 0 8px;
-font-weight:900;
-color:#cbd5e1;
+.guarantee h2 span{
+  color:#3b82f6;
 }
 
-.form input,
-.form textarea{
-width:100%;
-background:#08111f;
-border:1px solid #263244;
-border-radius:14px;
-padding:14px;
-color:white;
+.guarantee p{
+  margin-top:26px;
+  max-width:980px;
+  color:#aebbd8;
+  font-size:19px;
+  line-height:1.8;
 }
 
-.form textarea{
-min-height:90px;
+.footer{
+  padding:70px 0;
+  text-align:center;
+  color:#94a3b8;
 }
 
-.select-grid{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
+.mobileBottom{
+  display:none;
 }
 
-.select-chip{
-background:#08111f;
-border:1px solid #263244;
-border-radius:999px;
-padding:10px 14px;
-color:#cbd5e1;
-font-weight:900;
-cursor:pointer;
+@media(max-width:980px){
+
+.heroGrid{
+  grid-template-columns:1fr;
 }
 
-.select-chip.active{
-background:#2f80ed;
-color:white;
-border-color:#2f80ed;
-}
-
-.order{
-background:#111827;
-border:1px solid #263244;
-border-radius:18px;
-padding:16px;
-margin-bottom:12px;
-}
-
-.order-top{
-display:flex;
-justify-content:space-between;
-margin-bottom:10px;
-}
-
-.status{
-padding:6px 10px;
-border-radius:999px;
-font-size:12px;
-font-weight:900;
-}
-
-.status.wait{
-background:#172033;
-color:#dbeafe;
-}
-
-.status.paid{
-background:#3b0764;
-color:#e9d5ff;
-}
-
-.status.done{
-background:#064e3b;
-color:#6ee7b7;
-}
-
-.status.dispute{
-background:#7f1d1d;
-color:#fecaca;
-}
-
-.admin-grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px;
-margin-bottom:20px;
-}
-
-.admin-card{
-background:#08111f;
-border:1px solid #263244;
-border-radius:18px;
-padding:16px;
-}
-
-.admin-card span{
-font-size:12px;
-color:#94a3b8;
-display:block;
-margin-bottom:5px;
-}
-
-.tabs{
-display:flex;
-gap:8px;
-overflow:auto;
-margin-bottom:18px;
-}
-
-.tab{
-background:#172033;
-padding:10px 14px;
-border-radius:999px;
-font-weight:900;
-cursor:pointer;
-}
-
-.tab.active{
-background:#2f80ed;
-}
-
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.7);
-display:none;
-align-items:flex-end;
-z-index:999;
-}
-
-.modal.show{
-display:flex;
-}
-
-.sheet{
-background:white;
-color:#08111f;
-width:100%;
-max-width:520px;
-margin:auto;
-border-radius:28px 28px 0 0;
-padding:24px;
-}
-
-.toast{
-position:fixed;
-bottom:90px;
-left:50%;
-transform:translateX(-50%);
-background:#111827;
-border:1px solid #263244;
-padding:14px 18px;
-border-radius:16px;
-display:none;
-z-index:999;
-}
-
-.toast.show{
-display:block;
-}
-
-@media(max-width:820px){
-.hero{
-grid-template-columns:1fr;
-}
 .hero h1{
-font-size:40px;
+  font-size:48px;
+  letter-spacing:-2px;
 }
-.grid,
-.seller-list,
-.stats,
-.admin-grid{
-grid-template-columns:1fr;
+
+.sectionTitle{
+  font-size:38px;
 }
-.bottom-nav{
-display:grid;
+
+.guarantee h2{
+  font-size:40px;
+  letter-spacing:-1.5px;
 }
+
+.cardGrid{
+  grid-template-columns:1fr;
 }
+
+.sellerGrid{
+  grid-template-columns:1fr;
+}
+
+.menu{
+  display:none;
+}
+
+.hero{
+  padding-top:50px;
+}
+
+.mobileBottom{
+  position:fixed;
+  left:0;
+  bottom:0;
+  width:100%;
+  background:#081121;
+  border-top:1px solid #1e2a4b;
+  display:flex;
+  justify-content:space-around;
+  padding:12px 0 calc(env(safe-area-inset-bottom) + 12px);
+  z-index:9999;
+}
+
+.mobileBottom a{
+  color:white;
+  font-size:12px;
+  text-align:center;
+}
+
+.mobileBottom span{
+  display:block;
+  font-size:22px;
+  margin-bottom:6px;
+}
+
+body{
+  padding-bottom:90px;
+}
+
+}
+
 </style>
 </head>
 
 <body>
 
 <div class="topbar">
-<div class="logo">TetherGet</div>
-<button class="wallet-btn" onclick="openApp()">지갑 연결</button>
-</div>
+  <div class="container nav">
 
-<div id="landing">
+    <div class="logo">
+      Tether<span>Get</span>
+    </div>
+
+    <div class="menu">
+      <a href="#">홈</a>
+      <a href="#">P2P 거래</a>
+      <a href="#">판매 등록</a>
+      <a href="#">관리자</a>
+      <a href="#">지갑</a>
+    </div>
+
+    <div class="langWrap">
+      <button class="langBtn">KR</button>
+      <button class="langBtn">EN</button>
+      <button class="langBtn">VN</button>
+      <button class="langBtn">中文</button>
+      <button class="langBtn">日本語</button>
+    </div>
+
+  </div>
+</div>
 
 <section class="hero">
+  <div class="container heroGrid">
 
-<div>
-<h1>
-내 지갑에서 바로,<br>
-<span class="blue">스테이블코인과 현금</span>을 교환하세요.
-</h1>
+    <div>
 
-<p>
-TetherGet은 글로벌 P2P 에스크로 플랫폼입니다.
-USDT · USDC · SOL 같은 자산을 사람과 사람이 직접 거래하며,
-스마트컨트랙트 기반 보증 구조를 제공합니다.
-</p>
+      <span class="pill">
+        🔒 100% NON-CUSTODIAL · ON-CHAIN GUARANTEE
+      </span>
 
-<div class="hero-buttons">
-<button class="primary-btn" onclick="openApp()">거래 시작</button>
-<button class="secondary-btn">서비스 구조 보기</button>
-</div>
-</div>
+      <h1>
+        내 지갑에서 바로,<br>
+        <span>스테이블코인과 현금을</span><br>
+        교환하세요.
+      </h1>
 
-<div class="market-card">
-<div>🔵 LIVE MARKET</div>
-<div class="price">1,389 KRW</div>
+      <p>
+        TetherGet은 USDT·USDC·SOL과 법정화폐를 사용자끼리 직접 교환하는 글로벌 P2P 에스크로 플랫폼입니다.
+        자산은 플랫폼에 보관되지 않으며, 모든 거래는 스마트 컨트랙트 기반 검증 구조로 진행됩니다.
+      </p>
 
-<div class="price-grid">
-<div class="price-box">
-<span>구매자</span>
-<b>18명</b>
-</div>
+      <div class="heroBtns">
+        <button class="btn primary">스테이블코인 환전</button>
+        <button class="btn secondary">판매 광고 등록</button>
+      </div>
 
-<div class="price-box">
-<span>판매자</span>
-<b>22명</b>
-</div>
+    </div>
 
-<div class="price-box">
-<span>분쟁</span>
-<b>0건</b>
-</div>
-</div>
+    <div class="heroCard">
 
-<div class="chips">
-<div class="chip">USDT/KRW</div>
-<div class="chip">USDC/KRW</div>
-<div class="chip">SOL/KRW</div>
-</div>
-</div>
+      <span class="pill">LIVE MARKET</span>
 
+      <div class="priceBox">
+
+        <div class="priceItem">
+          <small>USDT / KRW</small>
+          <h3>₩1,389</h3>
+        </div>
+
+        <div class="priceItem">
+          <small>USDT / VND</small>
+          <h3>25,500đ</h3>
+        </div>
+
+        <div class="priceItem">
+          <small>판매 광고</small>
+          <h3>128</h3>
+        </div>
+
+        <div class="priceItem">
+          <small>평균 정산</small>
+          <h3>61초</h3>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="section darkBlock">
+  <div class="container">
+
+    <h2 class="sectionTitle">
+      왜 <span>TetherGet</span> 인가?
+    </h2>
+
+    <p class="sectionDesc">
+      중앙화 거래소의 편의성과 블록체인의 안전성,
+      그리고 P2P 자유거래를 하나로 결합한 글로벌 OTC 에스크로 플랫폼입니다.
+    </p>
+
+    <div class="cardGrid">
+
+      <div class="card">
+        <div style="font-size:42px;">🔐</div>
+        <h3>스마트 컨트랙트 보증</h3>
+        <p>
+          판매자의 코인은 온체인 에스크로에 자동 락업되며,
+          입금 검증 후 자동 릴리즈됩니다.
+        </p>
+      </div>
+
+      <div class="card">
+        <div style="font-size:42px;">🌎</div>
+        <h3>글로벌 P2P 지원</h3>
+        <p>
+          한국·베트남·일본·중국 등 다양한 지역의 개인 간 거래를 지원합니다.
+        </p>
+      </div>
+
+      <div class="card">
+        <div style="font-size:42px;">⚡</div>
+        <h3>빠른 정산</h3>
+        <p>
+          평균 1분 내 거래 완료.
+          판매자와 구매자가 직접 연결됩니다.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
 </section>
 
 <section class="section">
+  <div class="container">
 
-<div class="section-title">
-역할에 맞춰 시작하세요.
-</div>
+    <h2 class="sectionTitle">
+      판매자 목록
+    </h2>
 
-<div class="section-desc">
-구매자 · 판매자 · 관리자 모두 동일한 비수탁 구조 위에서 움직입니다.
-</div>
+    <div class="sellerGrid">
 
-<div class="grid">
+      <div class="seller">
 
-<div class="card">
-<h3>👤 구매자</h3>
-<p>스테이블코인 즉시 구매</p>
-</div>
+        <div class="sellerTop">
+          <div class="avatar">A</div>
+          <div class="live">LIVE</div>
+        </div>
 
-<div class="card">
-<h3>🏪 판매자</h3>
-<p>판매 광고 등록 및 에스크로</p>
-</div>
+        <h4>AlphaPay ✅</h4>
 
-<div class="card">
-<h3>🛡 관리자</h3>
-<p>분쟁 및 리스크 관리</p>
-</div>
+        <div class="stats">
 
-</div>
+          <div class="stat">
+            <small>판매 가능</small>
+            <b>50,000 USDT</b>
+          </div>
 
+          <div class="stat">
+            <small>환율</small>
+            <b>1,389 KRW</b>
+          </div>
+
+          <div class="stat">
+            <small>수수료</small>
+            <b>1%</b>
+          </div>
+
+        </div>
+
+        <div class="payments">
+          <div class="pay">은행이체</div>
+          <div class="pay">카카오페이</div>
+          <div class="pay">토스</div>
+        </div>
+
+        <button class="tradeBtn">
+          거래하기
+        </button>
+
+      </div>
+
+      <div class="seller">
+
+        <div class="sellerTop">
+          <div class="avatar">D</div>
+          <div class="live">LIVE</div>
+        </div>
+
+        <h4>Danang OTC ✅</h4>
+
+        <div class="stats">
+
+          <div class="stat">
+            <small>판매 가능</small>
+            <b>28,000 USDT</b>
+          </div>
+
+          <div class="stat">
+            <small>환율</small>
+            <b>25,500 VND</b>
+          </div>
+
+          <div class="stat">
+            <small>수수료</small>
+            <b>1%</b>
+          </div>
+
+        </div>
+
+        <div class="payments">
+          <div class="pay">MoMo</div>
+          <div class="pay">현금</div>
+          <div class="pay">베트남계좌</div>
+        </div>
+
+        <button class="tradeBtn">
+          거래하기
+        </button>
+
+      </div>
+
+      <div class="seller">
+
+        <div class="sellerTop">
+          <div class="avatar">S</div>
+          <div class="live">LIVE</div>
+        </div>
+
+        <h4>SOL Master ✅</h4>
+
+        <div class="stats">
+
+          <div class="stat">
+            <small>판매 가능</small>
+            <b>1,200 SOL</b>
+          </div>
+
+          <div class="stat">
+            <small>환율</small>
+            <b>205,000 KRW</b>
+          </div>
+
+          <div class="stat">
+            <small>수수료</small>
+            <b>1%</b>
+          </div>
+
+        </div>
+
+        <div class="payments">
+          <div class="pay">은행이체</div>
+          <div class="pay">USDT</div>
+        </div>
+
+        <button class="tradeBtn">
+          거래하기
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
 </section>
 
-</div>
+<section class="darkBlock guarantee">
+  <div class="container">
 
-<div class="app" id="app">
+    <span class="pill">
+      🔒 100% NON-CUSTODIAL · ON-CHAIN GUARANTEE
+    </span>
 
-<div class="stats">
+    <h2>
+      플랫폼은 단 1원, 단 1코인도 보관하지 않습니다.<br>
+      <span>송금 보장은 스마트 컨트랙트가 책임집니다.</span>
+    </h2>
 
-<div class="stat">
-<span>판매자</span>
-<b id="sellerCount">3</b>
-</div>
+    <p>
+      거래소가 멈춰도, 운영자가 사라져도 사용자의 자산은 플랫폼 내부에 보관되지 않습니다.
+      TetherGet은 사용자의 코인과 법정화폐를 직접 보관하지 않으며,
+      모든 거래는 검증 가능한 온체인 에스크로와 거래 증빙 시스템을 기반으로 처리됩니다.
+    </p>
 
-<div class="stat">
-<span>거래</span>
-<b id="tradeCount">2</b>
-</div>
+  </div>
+</section>
 
-<div class="stat">
-<span>거래량</span>
-<b>909M</b>
-</div>
+<footer class="footer">
+  © 2026 TetherGet. Global P2P Escrow Platform.
+</footer>
 
-<div class="stat">
-<span>분쟁</span>
-<b id="disputeCount">1</b>
-</div>
+<div class="mobileBottom">
 
-</div>
+  <a href="#">
+    <span>🏠</span>
+    홈
+  </a>
 
-<div id="marketPage">
+  <a href="#">
+    <span>💱</span>
+    거래
+  </a>
 
-<h2 style="margin-bottom:20px">인증 판매자</h2>
+  <a href="#">
+    <span>➕</span>
+    판매
+  </a>
 
-<div class="seller-list" id="sellerList"></div>
+  <a href="#">
+    <span>⚙️</span>
+    관리
+  </a>
 
-</div>
-
-<div id="sellPage" style="display:none">
-
-<div class="panel form">
-
-<h2>판매 등록</h2>
-
-<label>판매 코인</label>
-<div class="select-grid" id="coinButtons"></div>
-
-<label>판매 수량</label>
-<input id="sellAmount" type="number">
-
-<label>받을 통화</label>
-<div class="select-grid" id="fiatButtons"></div>
-
-<label>환율</label>
-<input id="sellRate" type="number">
-
-<label>결제방법</label>
-<div class="select-grid" id="payButtons"></div>
-
-<label>메모</label>
-<textarea id="sellMemo"></textarea>
-
-<button class="trade-btn" onclick="addSeller()">
-판매글 등록
-</button>
+  <a href="#">
+    <span>👛</span>
+    지갑
+  </a>
 
 </div>
-
-</div>
-
-<div id="ordersPage" style="display:none">
-
-<h2 style="margin-bottom:20px">거래내역</h2>
-
-<div id="ordersList"></div>
-
-</div>
-
-<div id="adminPage" style="display:none">
-
-<h2 style="margin-bottom:20px">관리자 콘솔</h2>
-
-<div class="tabs">
-
-<div class="tab active" onclick="adminTab('dashboard',this)">
-대시보드
-</div>
-
-<div class="tab" onclick="adminTab('users',this)">
-유저
-</div>
-
-<div class="tab" onclick="adminTab('trades',this)">
-거래
-</div>
-
-<div class="tab" onclick="adminTab('disputes',this)">
-분쟁
-</div>
-
-<div class="tab" onclick="adminTab('referral',this)">
-레퍼럴
-</div>
-
-<div class="tab" onclick="adminTab('settings',this)">
-설정
-</div>
-
-</div>
-
-<div id="adminContent"></div>
-
-</div>
-
-</div>
-
-<div class="bottom-nav">
-
-<button class="active" onclick="showPage('market',this)">
-🏠<br>홈
-</button>
-
-<button onclick="showPage('orders',this)">
-📄<br>거래
-</button>
-
-<button onclick="showPage('sell',this)">
-＋<br>판매
-</button>
-
-<button onclick="showPage('admin',this)">
-⚙️<br>관리
-</button>
-
-<button onclick="connectWallet()">
-👛<br>지갑
-</button>
-
-</div>
-
-<div class="modal" id="modal">
-<div class="sheet" id="sheet"></div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-
-let wallet='';
-
-let selectedCoin='USDT';
-let selectedFiat='KRW';
-let selectedPay='은행이체';
-
-const coins=['USDT','USDC','SOL'];
-const fiats=['KRW','USD','VND'];
-const pays=['은행이체','MoMo','토스','Wise'];
-
-let sellers=[
-{
-name:'AlphaPay',
-avatar:'A',
-level:7,
-score:99,
-done:428,
-coin:'USDT',
-amount:50000,
-fiat:'KRW',
-rate:1384,
-pay:['은행이체','토스'],
-memo:'대량 거래 가능'
-},
-{
-name:'Danang OTC',
-avatar:'D',
-level:6,
-score:97,
-done:311,
-coin:'USDT',
-amount:28000,
-fiat:'VND',
-rate:25500,
-pay:['MoMo','현금'],
-memo:'다낭 가능'
-},
-{
-name:'SOL Master',
-avatar:'S',
-level:5,
-score:96,
-done:188,
-coin:'SOL',
-amount:1200,
-fiat:'KRW',
-rate:205000,
-pay:['은행이체'],
-memo:'SOL 즉시 릴리즈'
-}
-];
-
-let orders=[
-{
-id:1001,
-seller:'AlphaPay',
-buyer:'USER001',
-coin:'USDT',
-amount:1000,
-fiat:'KRW',
-rate:1384,
-status:'WAIT'
-},
-{
-id:1002,
-seller:'Danang OTC',
-buyer:'USER002',
-coin:'USDT',
-amount:700,
-fiat:'VND',
-rate:25500,
-status:'DISPUTE'
-}
-];
-
-function n(x){
-return Number(x||0).toLocaleString();
-}
-
-function toast(msg){
-const t=document.getElementById('toast');
-t.innerText=msg;
-t.classList.add('show');
-setTimeout(()=>{
-t.classList.remove('show');
-},2000);
-}
-
-function openApp(){
-document.getElementById('landing').style.display='none';
-document.getElementById('app').classList.add('show');
-}
-
-function connectWallet(){
-wallet='TG_'+Math.floor(Math.random()*999999);
-toast('지갑 연결 완료');
-}
-
-function renderButtons(){
-
-document.getElementById('coinButtons').innerHTML=
-coins.map(c=>`
-<button
-class="select-chip ${selectedCoin===c?'active':''}"
-onclick="selectedCoin='${c}';renderButtons()"
->
-${c}
-</button>
-`).join('');
-
-document.getElementById('fiatButtons').innerHTML=
-fiats.map(c=>`
-<button
-class="select-chip ${selectedFiat===c?'active':''}"
-onclick="selectedFiat='${c}';renderButtons()"
->
-${c}
-</button>
-`).join('');
-
-document.getElementById('payButtons').innerHTML=
-pays.map(c=>`
-<button
-class="select-chip ${selectedPay===c?'active':''}"
-onclick="selectedPay='${c}';renderButtons()"
->
-${c}
-</button>
-`).join('');
-
-}
-
-function renderSellers(){
-
-document.getElementById('sellerList').innerHTML=
-sellers.map((s,i)=>`
-
-<div class="seller" onclick="openTrade(${i})">
-
-<div class="seller-top">
-
-<div class="seller-info">
-
-<div class="avatar">
-${s.avatar}
-</div>
-
-<div>
-<h3>${s.name} ✅</h3>
-<div style="color:#94a3b8;font-size:13px">
-Lv.${s.level} · 완료 ${s.done}건 · 평점 ${s.score}%
-</div>
-</div>
-
-</div>
-
-<div class="badge">LIVE</div>
-
-</div>
-
-<div class="price-grid">
-
-<div class="price-box">
-<span>판매 가능</span>
-<b>${n(s.amount)} ${s.coin}</b>
-</div>
-
-<div class="price-box">
-<span>환율</span>
-<b>${n(s.rate)} ${s.fiat}</b>
-</div>
-
-<div class="price-box">
-<span>수수료</span>
-<b>1%</b>
-</div>
-
-</div>
-
-<div class="chips">
-${s.pay.map(p=>`<div class="chip">${p}</div>`).join('')}
-</div>
-
-<p style="margin-top:14px;color:#94a3b8">
-${s.memo}
-</p>
-
-<button class="trade-btn">
-거래하기
-</button>
-
-</div>
-
-`).join('');
-
-}
-
-function openTrade(i){
-
-const s=sellers[i];
-
-document.getElementById('sheet').innerHTML=`
-
-<h2 style="margin-bottom:10px">
-${s.name}에게 ${s.coin} 구매
-</h2>
-
-<p style="margin-bottom:16px">
-환율 ${n(s.rate)} ${s.fiat}
-</p>
-
-<input
-id="buyAmount"
-type="number"
-placeholder="구매 수량"
-style="
-width:100%;
-padding:14px;
-border-radius:14px;
-border:1px solid #ddd;
-margin-bottom:14px;
-"
->
-
-<div class="chips">
-${s.pay.map(p=>`
-<div class="chip">
-${p}
-</div>
-`).join('')}
-</div>
-
-<button
-class="trade-btn"
-onclick="confirmTrade(${i})"
->
-거래 신청하기
-</button>
-
-<button
-class="secondary-btn"
-style="width:100%;margin-top:10px"
-onclick="closeModal()"
->
-닫기
-</button>
-
-`;
-
-document.getElementById('modal').classList.add('show');
-
-}
-
-function confirmTrade(i){
-
-const s=sellers[i];
-
-const amount=document.getElementById('buyAmount').value;
-
-if(!amount){
-toast('수량 입력');
-return;
-}
-
-orders.unshift({
-id:Date.now(),
-seller:s.name,
-buyer:wallet||'DEMO',
-coin:s.coin,
-amount,
-fiat:s.fiat,
-rate:s.rate,
-status:'WAIT'
-});
-
-closeModal();
-
-renderOrders();
-
-toast('거래 신청 완료');
-
-showPage('orders');
-
-}
-
-function closeModal(){
-document.getElementById('modal').classList.remove('show');
-}
-
-function addSeller(){
-
-const amount=document.getElementById('sellAmount').value;
-const rate=document.getElementById('sellRate').value;
-const memo=document.getElementById('sellMemo').value;
-
-if(!amount||!rate){
-toast('수량과 환율 입력');
-return;
-}
-
-sellers.unshift({
-name:wallet||'New Seller',
-avatar:'N',
-level:1,
-score:80,
-done:0,
-coin:selectedCoin,
-amount,
-fiat:selectedFiat,
-rate,
-pay:[selectedPay],
-memo
-});
-
-renderSellers();
-
-toast('판매 등록 완료');
-
-showPage('market');
-
-}
-
-function renderOrders(){
-
-document.getElementById('ordersList').innerHTML=
-orders.map((o,i)=>`
-
-<div class="order">
-
-<div class="order-top">
-
-<div>
-<h3>${n(o.amount)} ${o.coin}</h3>
-<div style="color:#94a3b8;font-size:13px">
-${o.seller}
-</div>
-</div>
-
-<div class="status ${o.status.toLowerCase()}">
-${o.status}
-</div>
-
-</div>
-
-<div class="chips">
-
-<div class="chip">
-${n(o.amount*o.rate)} ${o.fiat}
-</div>
-
-<div
-class="chip"
-onclick="
-orders[${i}].status='PAID';
-renderOrders();
-"
->
-입금완료
-</div>
-
-<div
-class="chip"
-onclick="
-orders[${i}].status='DONE';
-renderOrders();
-"
->
-릴리즈
-</div>
-
-<div
-class="chip"
-onclick="
-orders[${i}].status='DISPUTE';
-renderOrders();
-"
->
-분쟁
-</div>
-
-</div>
-
-</div>
-
-`).join('');
-
-}
-
-function showPage(page,el){
-
-document.getElementById('marketPage').style.display='none';
-document.getElementById('sellPage').style.display='none';
-document.getElementById('ordersPage').style.display='none';
-document.getElementById('adminPage').style.display='none';
-
-document.getElementById(page+'Page').style.display='block';
-
-document.querySelectorAll('.bottom-nav button')
-.forEach(b=>b.classList.remove('active'));
-
-if(el){
-el.classList.add('active');
-}
-
-}
-
-function adminTab(type,el){
-
-document.querySelectorAll('.tab')
-.forEach(t=>t.classList.remove('active'));
-
-if(el){
-el.classList.add('active');
-}
-
-const content=document.getElementById('adminContent');
-
-if(type==='dashboard'){
-
-content.innerHTML=`
-
-<div class="admin-grid">
-
-<div class="admin-card">
-<span>판매자</span>
-<b>${sellers.length}</b>
-</div>
-
-<div class="admin-card">
-<span>거래</span>
-<b>${orders.length}</b>
-</div>
-
-<div class="admin-card">
-<span>거래량</span>
-<b>909M</b>
-</div>
-
-<div class="admin-card">
-<span>분쟁</span>
-<b>${orders.filter(o=>o.status==='DISPUTE').length}</b>
-</div>
-
-</div>
-
-`;
-
-}
-
-if(type==='users'){
-
-content.innerHTML=`
-
-<div class="panel">
-
-<h3 style="margin-bottom:14px">
-유저 관리
-</h3>
-
-<p>판매자 레벨 관리</p>
-<p>블랙리스트 관리</p>
-<p>KYC 단계 관리</p>
-<p>VIP 관리</p>
-
-</div>
-
-`;
-
-}
-
-if(type==='trades'){
-
-content.innerHTML=`
-
-<div class="panel">
-
-<h3 style="margin-bottom:14px">
-거래 관리
-</h3>
-
-${orders.map(o=>`
-<div style="
-padding:12px;
-border-bottom:1px solid #263244;
-">
-${o.id} / ${o.seller} / ${o.status}
-</div>
-`).join('')}
-
-</div>
-
-`;
-
-}
-
-if(type==='disputes'){
-
-content.innerHTML=`
-
-<div class="panel">
-
-<h3 style="margin-bottom:14px">
-분쟁 관리
-</h3>
-
-${orders
-.filter(o=>o.status==='DISPUTE')
-.map(o=>`
-<div style="
-padding:12px;
-border-bottom:1px solid #263244;
-">
-분쟁 거래 ${o.id}
-</div>
-`).join('')}
-
-</div>
-
-`;
-
-}
-
-if(type==='referral'){
-
-content.innerHTML=`
-
-<div class="panel">
-
-<h3 style="margin-bottom:14px">
-20단계 레퍼럴
-</h3>
-
-<p>1단계 5%</p>
-<p>2단계 3%</p>
-<p>3단계 2%</p>
-<p>4~20단계 확장 가능</p>
-
-</div>
-
-`;
-
-}
-
-if(type==='settings'){
-
-content.innerHTML=`
-
-<div class="panel form">
-
-<h3 style="margin-bottom:14px">
-설정
-</h3>
-
-<label>메인 제목</label>
-
-<textarea
-oninput="
-document.querySelector('.hero h1').innerHTML=this.value
-"
->
-내 지갑에서 바로,<br><span class='blue'>스테이블코인과 현금</span>을 교환하세요.
-</textarea>
-
-<label>메인 설명</label>
-
-<textarea
-oninput="
-document.querySelector('.hero p').innerText=this.value
-"
->
-TetherGet은 글로벌 P2P 에스크로 플랫폼입니다.
-</textarea>
-
-</div>
-
-`;
-
-}
-
-}
-
-document.getElementById('modal')
-.onclick=(e)=>{
-if(e.target.id==='modal'){
-closeModal();
-}
-};
-
-renderButtons();
-renderSellers();
-renderOrders();
-adminTab('dashboard');
-
-</script>
 
 </body>
 </html>
